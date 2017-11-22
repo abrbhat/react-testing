@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import star_wars_data from '../data/star_wars';
 import MovieList from './MovieList';
 
 class MovieView extends Component {
@@ -14,19 +13,22 @@ class MovieView extends Component {
   onChange(event) {
     this.setState({ userInput: event.target.value });
   }
-
-  render() {
-		const movies = star_wars_data.filter(movie => {
+	getMovies(){
+		const movies = this.props.starWarsData.filter(movie => {
       return movie.title.toLowerCase().includes(this.state.userInput.toLowerCase());
     });
 
+		return movies;
+	}
+
+  render() {
     return (
       <div>
         <input type="text"
                value={this.state.userInput}
                onChange={this.onChange} />
 
-        <MovieList movies={movies} />
+        <MovieList movies={this.getMovies()} />
       </div>
     );
   }
